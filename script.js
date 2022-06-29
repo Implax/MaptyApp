@@ -102,10 +102,25 @@ class App {
   _newWorkout(e) {
     e.preventDefault();
 
-    //Clear Fields
-    inputDistance.value = '';
-    inputDuration.value = '';
-    inputCadence.value = '';
+    //Getting Form Data Via Javascript
+    const type = inputType.value;
+    const distance = +inputDistance.value;
+    const duration = +inputDuration.value;
+
+    if (type === 'running') {
+      const cadence = +inputCadence.value;
+
+      if (
+        !Number.isFinite(distance) ||
+        !Number.isFinite(duration) ||
+        !Number.isFinite(cadence)
+      )
+        return alert('Inputs have to be positive numbers!');
+    }
+
+    if (type === 'cycling') {
+      const elevation = +inputElevation.value;
+    }
 
     const { lat, lng } = this.#mapEvent.latlng;
 
@@ -122,6 +137,11 @@ class App {
       )
       .setPopupContent('Workout')
       .openPopup();
+
+    //Clear Fields
+    inputDistance.value = '';
+    inputDuration.value = '';
+    inputCadence.value = '';
   }
 }
 
